@@ -9,7 +9,7 @@
     "#models/*": "./src/models/*",
     "#routes/*": "./src/routes/*",
     "#utils/*": "./src/utils/*",
-    "#middlewares/*": "./src/middlewares/*",
+    "#middleware/*": "./src/middleware/*",
     "#services/*": "./src/services/*",
     "#validations/*": "./src/validations/*"
   },
@@ -36,6 +36,8 @@
   },
   "homepage": "https://github.com/Aditya-AJ-19/acquisitions#readme",
   "dependencies": {
+    "@arcjet/inspect": "^1.0.0-beta.13",
+    "@arcjet/node": "^1.0.0-beta.13",
     "@neondatabase/serverless": "^1.0.2",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
