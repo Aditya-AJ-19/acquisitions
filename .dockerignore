@@ -1,5 +1,5 @@
 # Dependencies
-node_modules/
+node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -11,14 +11,11 @@ pids
 *.pid.lock
 
 # Coverage directory used by tools like istanbul
-coverage/
+coverage
 *.lcov
 
 # nyc test coverage
 .nyc_output
-
-# Grunt intermediate storage
-.grunt
 
 # Bower dependency directory
 bower_components
@@ -71,23 +68,28 @@ Thumbs.db
 *.swo
 *~
 
-# Temporary folders
-tmp/
-temp/
+# Git
+.git
+.gitignore
 
-# Build output
-dist/
-build/
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
 
-# Drizzle migrations
+# Documentation
+README.md
+*.md
+
+# Test files
+test/
+tests/
+__tests__/
+*.test.js
+*.spec.js
+
+# Drizzle
 drizzle/
 
-# Neon Local data
+# Neon Local
 .neon_local/
-
-# Docker volumes
-data/
-
-# SSL certificates (if any)
-ssl/
-certs/
