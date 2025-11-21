@@ -69,17 +69,20 @@ export const authenticateUser = async ({ email, password }) => {
       throw new Error('User not found');
     }
 
-    const isPasswordValid = await comparePassword(password, existingUser[0].password);
+    const isPasswordValid = await comparePassword(
+      password,
+      existingUser[0].password
+    );
     if (!isPasswordValid) {
       throw new Error('Invalid password');
     }
     logger.info(`User authenticated successfully: ${email}`);
     return {
-        id: existingUser[0].id,
-        name: existingUser[0].name,
-        email: existingUser[0].email,
-        role: existingUser[0].role,
-        created_at: existingUser[0].created_at,
+      id: existingUser[0].id,
+      name: existingUser[0].name,
+      email: existingUser[0].email,
+      role: existingUser[0].role,
+      created_at: existingUser[0].created_at,
     };
   } catch (e) {
     logger.error('Authenticate User Error', e);

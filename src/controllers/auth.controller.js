@@ -1,5 +1,5 @@
 import logger from '#config/logger.js';
-import { createUser, authenticateUser } from '#services/auth.service.js';
+import { createUser, authenticateUser } from '#services/auth.services.js';
 import { cookies } from '#utils/cookies.js';
 import { formatValidationError } from '#utils/format.js';
 import { jwttoken } from '#utils/jwt.js';

@@ -4,6 +4,11 @@ import logger from '#config/logger.js';
 
 const securityMiddleware = async (req, res, next) => {
   try {
+    // Skip Arcjet for /health
+    if (req.path === '/health') {
+      return next();
+    }
+    
     const role = req.user?.role || 'guest';
 
     let limit;
@@ -46,12 +51,10 @@ const securityMiddleware = async (req, res, next) => {
         userAgent: req.get('User-Agent'),
         path: req.path,
       });
-      return res
-        .status(409)
-        .json({
-          error: 'Forbidden',
-          message: 'Automated requests are not allowed',
-        });
+      return res.status(409).json({
+        error: 'Forbidden',
+        message: 'Automated requests are not allowed',
+      });
     }
     if (decision.isDenied() && decision.reason.isShield()) {
       logger.warn('Shield block request', {
@@ -60,12 +63,10 @@ const securityMiddleware = async (req, res, next) => {
         path: req.path,
         method: req.method,
       });
-      return res
-        .status(409)
-        .json({
-          error: 'Forbidden',
-          message: 'Request blocked by security policy',
-        });
+      return res.status(409).json({
+        error: 'Forbidden',
+        message: 'Request blocked by security policy',
+      });
     }
     if (decision.isDenied() && decision.reason.isRateLimit()) {
       logger.warn('Rate limit exceeded', {
@@ -74,12 +75,10 @@ const securityMiddleware = async (req, res, next) => {
         path: req.path,
         method: req.method,
       });
-      return res
-        .status(409)
-        .json({
-          error: 'Forbidden',
-          message: 'Too many requests, please try again later',
-        });
+      return res.status(409).json({
+        error: 'Forbidden',
+        message: 'Too many requests, please try again later',
+      });
     }
     next();
   } catch (e) {
