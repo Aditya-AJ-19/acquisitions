@@ -14,11 +14,13 @@ A production-ready Node.js application with Express, Drizzle ORM, and Neon Datab
 ## 📋 Prerequisites
 
 ### Required Tools
+
 - [Docker](https://www.docker.com/get-started) and Docker Compose
 - [Node.js 18+](https://nodejs.org/) (for local development without Docker)
 - [Git](https://git-scm.com/)
 
 ### Neon Database Setup
+
 1. Create a [Neon account](https://neon.tech/)
 2. Create a new project
 3. Get your credentials from the Neon Console:
@@ -29,6 +31,7 @@ A production-ready Node.js application with Express, Drizzle ORM, and Neon Datab
 ## 🚀 Quick Start
 
 ### 1. Clone and Setup
+
 ```bash
 git clone <your-repository-url>
 cd devops-course
@@ -37,6 +40,7 @@ cd devops-course
 ### 2. Configure Environment Variables
 
 #### For Development (.env.development)
+
 ```bash
 # Copy the template and update with your Neon credentials
 cp .env.development .env.development.local
@@ -48,6 +52,7 @@ PARENT_BRANCH_ID=your_parent_branch_id
 ```
 
 #### For Production (.env.production)
+
 ```bash
 # Set these environment variables in your production environment
 DATABASE_URL=postgres://username:password@ep-example.us-east-1.aws.neon.tech/dbname?sslmode=require
@@ -60,6 +65,7 @@ CORS_ORIGIN=https://your-domain.com
 ### Using Docker Compose (Recommended)
 
 #### Start Development Environment
+
 ```bash
 # Load environment variables and start services
 docker-compose --env-file .env.development.local -f docker-compose.dev.yml up --build
@@ -69,22 +75,26 @@ docker-compose --env-file .env.development.local -f docker-compose.dev.yml up -d
 ```
 
 #### What This Does:
+
 - 🐳 Starts **Neon Local** proxy container
 - 📦 Creates ephemeral database branches automatically
 - 🔄 Enables hot-reloading for development
 - 🗄️ Optionally runs Drizzle Studio for database management
 
 #### Available Services:
+
 - **App**: http://localhost:3000
 - **Database**: localhost:5432 (via Neon Local)
 - **Drizzle Studio**: http://localhost:4983 (run with `--profile studio`)
 
 #### Start with Database Studio:
+
 ```bash
 docker-compose --env-file .env.development.local -f docker-compose.dev.yml --profile studio up --build
 ```
 
 #### View Logs:
+
 ```bash
 # All services
 docker-compose -f docker-compose.dev.yml logs -f
@@ -95,6 +105,7 @@ docker-compose -f docker-compose.dev.yml logs -f neon-local
 ```
 
 #### Stop Development Environment:
+
 ```bash
 docker-compose -f docker-compose.dev.yml down
 
@@ -127,6 +138,7 @@ npm run dev
 ### Using Docker Compose
 
 #### 1. Set Environment Variables
+
 ```bash
 # Option 1: Create .env file for production
 DATABASE_URL=postgres://username:password@ep-example.us-east-1.aws.neon.tech/dbname?sslmode=require
@@ -140,6 +152,7 @@ export CORS_ORIGIN="https://your-domain.com"
 ```
 
 #### 2. Deploy Application
+
 ```bash
 # Build and start production services
 docker-compose -f docker-compose.prod.yml up --build -d
@@ -152,6 +165,7 @@ docker-compose -f docker-compose.prod.yml logs -f
 ```
 
 #### 3. Health Check
+
 ```bash
 # Check if application is healthy
 curl http://localhost:3000/health
@@ -167,6 +181,7 @@ curl http://localhost:3000/health
 ### Cloud Deployment (AWS/GCP/Azure)
 
 #### 1. Container Registry
+
 ```bash
 # Build and tag for production
 docker build -t your-registry/devops-course:latest --target production .
@@ -176,7 +191,9 @@ docker push your-registry/devops-course:latest
 ```
 
 #### 2. Environment Variables
+
 Set these in your cloud provider's environment configuration:
+
 - `DATABASE_URL`: Your Neon Cloud connection string
 - `JWT_SECRET`: Secure random string
 - `CORS_ORIGIN`: Your domain(s)
@@ -185,6 +202,7 @@ Set these in your cloud provider's environment configuration:
 ## 🗄️ Database Operations
 
 ### Run Database Migrations
+
 ```bash
 # Development
 docker-compose -f docker-compose.dev.yml exec app npm run db:migrate
@@ -194,12 +212,14 @@ docker-compose -f docker-compose.prod.yml exec app npm run db:migrate
 ```
 
 ### Generate New Migrations
+
 ```bash
 # Development
 docker-compose -f docker-compose.dev.yml exec app npm run db:generate
 ```
 
 ### Access Drizzle Studio
+
 ```bash
 # Start with studio profile
 docker-compose --env-file .env.development.local -f docker-compose.dev.yml --profile studio up -d
@@ -210,31 +230,34 @@ docker-compose --env-file .env.development.local -f docker-compose.dev.yml --pro
 ## 🔧 Environment Variables Reference
 
 ### Development Environment
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NODE_ENV` | Environment mode | `development` |
-| `PORT` | Application port | `3000` |
-| `DATABASE_URL` | Neon Local connection | `postgres://neon:npg@neon-local:5432/dbname?sslmode=require` |
-| `NEON_API_KEY` | Your Neon API key | `neon_api_key_xxx` |
-| `NEON_PROJECT_ID` | Your Neon project ID | `proud-sound-12345` |
-| `PARENT_BRANCH_ID` | Parent branch for ephemeral branches | `br-main-abc123` |
-| `JWT_SECRET` | JWT signing secret | `dev_secret_123` |
-| `LOG_LEVEL` | Logging verbosity | `debug` |
+
+| Variable           | Description                          | Example                                                      |
+| ------------------ | ------------------------------------ | ------------------------------------------------------------ |
+| `NODE_ENV`         | Environment mode                     | `development`                                                |
+| `PORT`             | Application port                     | `3000`                                                       |
+| `DATABASE_URL`     | Neon Local connection                | `postgres://neon:npg@neon-local:5432/dbname?sslmode=require` |
+| `NEON_API_KEY`     | Your Neon API key                    | `neon_api_key_xxx`                                           |
+| `NEON_PROJECT_ID`  | Your Neon project ID                 | `proud-sound-12345`                                          |
+| `PARENT_BRANCH_ID` | Parent branch for ephemeral branches | `br-main-abc123`                                             |
+| `JWT_SECRET`       | JWT signing secret                   | `dev_secret_123`                                             |
+| `LOG_LEVEL`        | Logging verbosity                    | `debug`                                                      |
 
 ### Production Environment
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NODE_ENV` | Environment mode | `production` |
-| `PORT` | Application port | `3000` |
+
+| Variable       | Description           | Example                                                    |
+| -------------- | --------------------- | ---------------------------------------------------------- |
+| `NODE_ENV`     | Environment mode      | `production`                                               |
+| `PORT`         | Application port      | `3000`                                                     |
 | `DATABASE_URL` | Neon Cloud connection | `postgres://user:pass@ep-xxx.neon.tech/db?sslmode=require` |
-| `JWT_SECRET` | JWT signing secret | `super_secure_secret_xxx` |
-| `CORS_ORIGIN` | Allowed CORS origins | `https://yourdomain.com` |
-| `LOG_LEVEL` | Logging verbosity | `info` |
-| `TRUST_PROXY` | Trust reverse proxy | `true` |
+| `JWT_SECRET`   | JWT signing secret    | `super_secure_secret_xxx`                                  |
+| `CORS_ORIGIN`  | Allowed CORS origins  | `https://yourdomain.com`                                   |
+| `LOG_LEVEL`    | Logging verbosity     | `info`                                                     |
+| `TRUST_PROXY`  | Trust reverse proxy   | `true`                                                     |
 
 ## 📊 Monitoring and Debugging
 
 ### View Application Logs
+
 ```bash
 # Development
 docker-compose -f docker-compose.dev.yml logs -f app
@@ -244,6 +267,7 @@ docker-compose -f docker-compose.prod.yml logs -f app
 ```
 
 ### Database Connection Testing
+
 ```bash
 # Test Neon Local connection
 docker-compose -f docker-compose.dev.yml exec neon-local pg_isready -h localhost -p 5432 -U neon
@@ -261,6 +285,7 @@ docker-compose -f docker-compose.dev.yml exec app node -e "
 ```
 
 ### Performance Monitoring
+
 ```bash
 # Container resource usage
 docker stats
@@ -274,6 +299,7 @@ curl http://localhost:3000/health
 ### Common Issues
 
 #### 1. Neon Local Connection Failed
+
 ```bash
 # Check if Neon Local is running
 docker-compose -f docker-compose.dev.yml ps neon-local
@@ -286,6 +312,7 @@ docker-compose -f docker-compose.dev.yml exec neon-local env | grep NEON
 ```
 
 #### 2. Application Can't Connect to Database
+
 ```bash
 # Check network connectivity
 docker-compose -f docker-compose.dev.yml exec app nslookup neon-local
@@ -295,6 +322,7 @@ docker-compose -f docker-compose.dev.yml exec app echo $DATABASE_URL
 ```
 
 #### 3. Port Already in Use
+
 ```bash
 # Find what's using port 3000
 netstat -tulnp | grep :3000
@@ -306,6 +334,7 @@ PORT=3001 docker-compose -f docker-compose.dev.yml up
 ```
 
 #### 4. Permission Issues
+
 ```bash
 # Fix file permissions
 chmod +x ./scripts/*
@@ -315,6 +344,7 @@ sudo usermod -aG docker $USER
 ```
 
 ### Logs and Debugging
+
 ```bash
 # Detailed container inspection
 docker-compose -f docker-compose.dev.yml exec app sh
@@ -329,11 +359,13 @@ docker-compose -f docker-compose.dev.yml exec app npm run db:studio
 ## 🔒 Security Considerations
 
 ### Development
+
 - Neon Local creates ephemeral branches that are automatically deleted
 - Environment variables are loaded from local files
 - Debug logging is enabled for troubleshooting
 
 ### Production
+
 - All secrets are injected via environment variables
 - Non-root user in containers
 - Resource limits and health checks configured
