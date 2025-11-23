@@ -36,10 +36,14 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  res.status(200).send('Acquisitions api is running!');
+  res.status(200).json({ message: 'Acquisitions api is running!' });
 });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
+
+app.use((req, res) => {
+  res.status(404).send({ error: 'Route Not Found' });
+});
 
 export default app;
